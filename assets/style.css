@@ -1,11 +1,12 @@
 header {
     border: 4px solid;
     height: 70px;
+    background-color: rgba(56, 97, 23, 0.39);
 }
 ul {
     list-style: none;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 li {
@@ -13,12 +14,25 @@ li {
     font-size: 24px;
 }
 
+#time {
+    padding-right: 80px;
+}
+
 h1 { 
+    display: flex;
+    justify-content: center;
     font-size: 56px;
-    color: blue;
+    color: black;
     
 }
 
+p {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+}
 
-
-
+main {
+    display: flex;
+    justify-content: center;
+}
