@@ -5,7 +5,7 @@ var title = document.createElement("h1");
 var description = document.createElement("p");
 var startQuiz = document.createElement("button")
 var timeEl = document.getElementById("time")
-
+var timerResult = document.createElement("h2")
 
 // Create ordered list element
 var listEl = document.createElement("ol");
@@ -20,6 +20,7 @@ var but1 = document.createElement("button");
 var but2 = document.createElement("button");
 var but3 = document.createElement("button");
 var but4 = document.createElement("button");
+var buttons = [but1, but2, but3, but4];
 
 title.textContent = "Coding Quiz Challenge";
 description.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your scoretime by ten seconds!."
@@ -33,10 +34,10 @@ body.appendChild(startQuiz);
 startQuiz.textContent = "Start Quiz";
 
 var secondsLeft = 60;
+var secondsShows = 2;
 
 startQuiz.addEventListener("click", function(){
-    console.log("I have been clicked");
-
+    
     body.appendChild(questionsContainer);
     questionsContainer.appendChild(question);
 
@@ -49,32 +50,145 @@ startQuiz.addEventListener("click", function(){
     li2.appendChild(but2);
     li3.appendChild(but3);
     li4.appendChild(but4);
-
-
-    question.textContent = "A very usefull tool used during development and debugging for printing content to the degugger is:"
-    but1.textContent = "JavaScript";
-    but2.textContent = "terminal/bash";
-    but3.textContent = "for loops";
-    but4.textContent = "console.log";
-
-    but4.addEventListener("click", function() {
-        console.log("good answer");
-        
-    })
     
+    questionsContainer.appendChild(timerResult)
+
+    console.log("I have been clicked");
+    startQuiz.style.display = "none";
+    title.textContent = "";
+    description.textContent = "";
     
 
+    var score = 0;
+    var currentQustion = 0;
+    var selectedAnswer;
+    var correctAnswer;
+
+    var newQuestions = [
+        {
+          'text': "A very usefull tool used during development and debugging for printing content to the degugger is:",
+          'answer1': "JavaScript",
+          'answer2': "terminal/bash",
+          'answer3': "for loops",
+          'answer4': "console.log",
+          'correctAnswer': "console.log",
+        },
+        {
+          'text': "The Capital of New jersey is :",
+          'answer1': "trenton",
+          'answer2': "Jersey City",
+          'answer3': "Manhattan",
+          'answer4': "New York",
+          'correctAnswer': "trenton",
+        },
+        {
+          'text': "CSS is used for :",
+          'answer1': "Decoration",
+          'answer2': "Style",
+          'answer3': "Photo App",
+          'answer4': "Script",
+          'correctAnswer': "Style",
+        },
+        {
+          'text': "HTML is used for :",
+          'answer1': "Decoration",
+          'answer2': "Style",
+          'answer3': "Photo App",
+          'answer4': "Display content in a browser",
+          'correctAnswer': "Display content in a browser",
+        }
+    ];
     
- 
+    function FillContent(newQuestion) {
+        question.textContent = newQuestion['text'];
+        but1.textContent = newQuestion['answer1'];
+        but2.textContent = newQuestion['answer2'];
+        but3.textContent = newQuestion['answer3'];
+        but4.textContent = newQuestion['answer4'];
+        correctAnswer = newQuestion['correctAnswer'];
+    
+    }
+
+    FillContent(newQuestions[currentQustion])
+    
+    buttons.forEach(function(button) {
+        button.addEventListener("click", function() {
+          selectedAnswer = button.textContent;
+    
+          if (selectedAnswer === correctAnswer) {
+            score++;
+            currentQustion++;
+            console.log("good");
+            secondsShows = 2
+            answerResult();
+    
+    
+          } else {
+            currentQustion++;
+            console.log("wrong answer");
+            secondsLeft -= 10;
+          }
+    
+          if (currentQustion < newQuestions.length) {
+            FillContent(newQuestions[currentQustion]);
+    
+          }else {
+            question.textContent = "";
+            but1.hidden = true;
+            but2.hidden = true;
+            but3.hidden = true;
+            but4.hidden = true;
+            li1.hidden = true;
+            li2.hidden = true;
+            li3.hidden = true;
+            li4.hidden = true;
+            timerResult.textContent = "";
+          }
+    
+          scoreboard();
+    
+        })
+    });
+
+    function answerResult() {
+        var timerAnswer = setInterval(function() {
+          secondsShows--;
+          timerResult.textContent = "Correct answer";
+    
+          if (secondsShows === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerAnswer);
+            timerResult.textContent = ""
+            // Calls function to create and append image
+            //   sendMessage();
+          }
+    
+        }, 1000);
+    
+    }
+
+    function scoreboard() {
+        console.log(score * 10);
+    }
+
     var timerInterval = setInterval(function() {
         secondsLeft--;
-        timeEl.textContent = "Time: " + secondsLeft;
+        timeEl.textContent = secondsLeft;
     
         if(secondsLeft === 0) {
           // Stops execution of action at set interval
           clearInterval(timerInterval);
-          // Calls function to create and append image
-        //   sendMessage();
+          question.textContent = "";
+            but1.hidden = true;
+            but2.hidden = true;
+            but3.hidden = true;
+            but4.hidden = true;
+            li1.hidden = true;
+            li2.hidden = true;
+            li3.hidden = true;
+            li4.hidden = true;
+            timerResult.textContent = "";
+        
         }
     
     }, 1000);
