@@ -1,24 +1,59 @@
+html {
+    width: 90%;
+    margin: auto;
+}
+
+body {
+    background-color: ghostwhite;
+}
 header {
     border: 4px solid;
     height: 70px;
+    background-color: bisque;
 }
 ul {
     list-style: none;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 li {
-    color: blue;
-    font-size: 24px;
+    color: Black;
+    font-size: 20px;
+}
+
+#time {
+    padding-right: 80px;
 }
 
 h1 { 
+    display: flex;
+    justify-content: center;
     font-size: 56px;
-    color: blue;
+    color: black;
     
 }
 
+h2 {
+    display: flex;
+    font-size: 40px;
+}
 
+p {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+    padding-inline: 100px;
+}
 
-
+button {
+    height: 48px;
+    width: auto;
+    font-size: 20px;
+    background-color: bisque;
+    color: Black;
+}
+main {
+    display: flex;
+    justify-content: center;
+}
